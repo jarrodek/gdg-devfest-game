@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>USB test</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/bootstrap.css">
+        <link rel="stylesheet" href="css/app.css">
+    </head>
+    <body>        
+
+        <div id="WelcomeScreen" class="active">
+            <div class="jumbotron">
+                <div class="container">
+
+                    <div class="jumbo-left">
+                        <h1 class="color-gray">Hello,</h1>
+                        <p id="WelcomeMessage" class="color-gray">Lets play GDG game!</p>
+                        <p>
+                            <a id="StartGameButton" class="btn btn-primary btn-lg btn-gdgaction">Start the game</a>
+                            <a id="StartGameButtonRed" class="btn btn-primary btn-lg btn-gdgaction hidden">Press red button to begin</a>
+                        </p>
+                    </div>
+                    <div class="jumbo-right">
+                        <div class="jumbo-inline-middle">
+                            <img src="img/gdgicon.svg" alt="GDG Logo" class="gdg-logo"/>
+                        </div>
+                        <div class="jumbo-inline-middle">
+                            <h3 class="jumbo-dgd-name color-gray">GDG DevFest</h3>
+                            <h4 class="jumbo-dgd-season color-gray">2013 Season</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="buzzerPressInfo">
+                <img src="img/buzzer.jpg" alt="Buzz!" />
+                <div class="buzzer-circle"></div>
+            </div>
+            <div id="gameCopy" class="color-gray-light">
+                Game created for GDG DevFest 2013 in Warsaw, Poland by <a href="https://plus.google.com/113648393775261658002?rel=author">+Pawel Psztyc</a>
+            </div>
+        </div>
+
+        <div id="NoDevideScreenScreen" class="hidden">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="color-gray">One more thing to go,</h1>
+                    <p class="color-gray">You need to give the game a permissions to use USB devices.</p>
+                    <p><a id="PermissionsAcceptButton" class="btn btn-primary btn-lg btn-gdgaction">Sure thing!</a></p>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="DeviceNotReadyScreen" class="hidden">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="color-gray">Uuuuuups,</h1>
+                    <p class="color-gray">No device found. Check connection and some wibbly-wobbly timey-wimey.... stuff</p>
+                    <p><a id="StartOverAgain" class="btn btn-primary btn-lg btn-gdgaction">Lets try again.</a></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Screen where the user must click on red button to join the game. -->
+        <div id="PlayersChooserScreen" class="hidden">
+            <div class="jumbotron">
+                <div class="container">
+                    <h1 class="color-gray">Hit the red button to start the game</h1>
+                </div>
+            </div>
+            <div class="row player-selector">
+                <div class="col-md-3">
+                    <h2 class="color-blue">Player 1</h2>
+                    <div class="player-join-selection">
+                        <div class="bg-blue circle">
+                            <div class="circle-bg"></div>
+                            <div class="circle-info">READY</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-3">
+                    <h2 class="color-red">Player 2</h2>
+                    <div class="player-join-selection">
+                        <div class="bg-red circle">
+                            <div class="circle-bg"></div>
+                            <div class="circle-info">READY</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h2 class="color-yellow">Player 3</h2>
+                    <div class="player-join-selection">
+                        <div class="bg-yellow circle">
+                            <div class="circle-bg"></div>
+                            <div class="circle-info">READY</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <h2 class="color-green">Player 4</h2>
+                    <div class="player-join-selection">
+                        <div class="bg-green circle">
+                            <div class="circle-bg"></div>
+                            <div class="circle-info">READY</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row join-timer"></div>
+
+            <div id="JoinTimeout" class="hidden">
+                <h4>No one has joined the game.</h4>
+                <p>Press the red button to begin.</p>
+            </div>
+        </div>
+
+        <div id="GameQuestionScreen" class="hidden">
+
+        </div>
+        
+        <div id="UsbDisconnectedScreen" class="hidden">
+            <img src="img/Chrome-Aw-Snap.jpg" alt="Chrome Aw Snap"/>
+            <div class="AwSnap">
+                <h1>The Buzz controller has been disconnected<br/>from the device you using!</h1>
+                <p>Don't worry. Simple plug out and plug in should work. Then press <button id="tryReconnect" class="btn btn-primary btn-lg btn-gdgaction">this button</button></p>
+            </div>
+        </div>
+
+
+    <template id="question-category-template">
+        <div class="question-category-wrapper start">
+            <div class="category-wrapper bg-gray">
+                <img src="img/gdgicon.svg" alt="GDG Logo" class="gdg-logo"/>
+                <span class="category-value"></span>
+            </div>
+
+        </div>
+    </template>
+
+
+    <template id="question-screen-template">
+        <div class="question-screen-wrapper">
+
+            <div class="question-wrapper bg-gray row">
+                <div class="col-md-1">
+                    <img src="img/gdgicon.svg" alt="GDG Logo" class="gdg-logo">
+                </div>
+                <div class="col-md-11">
+                    <span class="question-value"></span>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div class="answers-list">
+                    <ul class="answers">
+                        <li class="bg-blue hidden"></li>
+                        <li class="bg-red hidden"></li>
+                        <li class="bg-green hidden"></li>
+                        <li class="bg-yellow hidden"></li>
+                    </ul>
+                </div>
+                <div class="players-state">
+                    <ul class="players-results">
+                        <li data-player="0" class="bg-gray-light hidden result-order-0"><span class="answer-counter color-green"><canvas class="user-answer-ticker" width="60" height="60"></canvas></span><span class="label label-default">P1</span><span class="player-value"></span></li>
+                        <li data-player="1" class="bg-gray-light hidden result-order-1"><span class="answer-counter color-green"><canvas class="user-answer-ticker" width="60" height="60"></canvas></span><span class="label label-default">P2</span><span class="player-value"></span></li>
+                        <li data-player="2" class="bg-gray-light hidden result-order-2"><span class="answer-counter color-green"><canvas class="user-answer-ticker" width="60" height="60"></canvas></span><span class="label label-default">P3</span><span class="player-value"></span></li>
+                        <li data-player="3" class="bg-gray-light hidden result-order-3"><span class="answer-counter color-green"><canvas class="user-answer-ticker" width="60" height="60"></canvas></span><span class="label label-default">P4</span><span class="player-value"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </template>
+    <template id="bad-answer-symbol-template">
+        <div class="bad-answer-sign"><span class="bg-red"></span><span class="bg-red"></span></div>
+    </template>
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/buzz.js"></script>
+    <script src="js/AppTimer.js"></script>
+    <script src="js/gamestates.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
