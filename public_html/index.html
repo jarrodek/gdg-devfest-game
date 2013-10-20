@@ -120,23 +120,97 @@
         <div id="GameQuestionScreen" class="hidden">
 
         </div>
+        <div id="GameResultsScreen" class="hidden">
+            <div class="container">
+                <h1 class="color-gray">Game Over</h1>
+                <div class="row">
+                    <ul class="player-results">
+                        <li class="bg-blue"><span class="player-name"></span><span class="player-value label label-danger"></span></li>
+                        <li class="bg-red"><span class="player-name"></span><span class="player-value label label-danger"></span></li>
+                        <li class="bg-green"><span class="player-name"></span><span class="player-value label label-danger"></span></li>
+                        <li class="bg-yellow"><span class="player-name"></span><span class="player-value label label-danger"></span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
         
         <div id="UsbDisconnectedScreen" class="hidden">
             <img src="img/Chrome-Aw-Snap.jpg" alt="Chrome Aw Snap"/>
             <div class="AwSnap">
                 <h1>The Buzz controller has been disconnected<br/>from the device you using!</h1>
                 <p>Don't worry. Simple plug out and plug in should work. Then press <button id="tryReconnect" class="btn btn-primary btn-lg btn-gdgaction">this button</button></p>
+                <p><a href="#" id="usbDisconnectedMoreHelpButton">More help</a></p>
+            </div>
+        </div>
+        <div id="UsbDisconnectedMoreHelp" class="hidden">
+            <div class="container">
+                <h1>My USB desive is not working. Help me!</h1>
+                <div class="row help-row">
+                    <h2>I'm using linux based OS</h2>
+                    <p>
+                        Buzz controllers are recognized as a HID (human interface device) device.
+                        Right after you connect controller to your machine the system will claim all programming interfaces to it. 
+                        Chrome app is unable to to claim an interface because Chrome can't and the app will not work.
+                    </p>
+                    <p>
+                        However there is a set of commends that release interfaces in your system and the app will use device's interface.<br/>
+                        <span class="label label-info">Disclaimer</span> This is tested under Ubuntu only. But it should works on other linux based systems.
+                    </p>
+                    <p>
+                        You must to do two things:
+                    </p>
+                    <ol>
+                        <li>
+                            Find device id using dmesg:<br/>
+                            <div class="console">
+                                <div class="console-line">
+                                    <span class="console-info">$ </span><span class="console-command">dmesg</span>
+                                </div>
+                            </div>
+                            There should be some line with something like:
+                            <code>
+                                input: Logitech Logitech Buzz(tm) Controller V1 as /devices/pci0000:00/0000:00:1d.0/usb2/2-1/2-1.1/2-1.1:1.0/input/input17
+                            </code><br/>
+                            Where <code>"2-1.1:1.0"</code> is device ID.
+                        </li>
+                        <li>
+                            Next login as root:
+                            <div class="console">
+                                <div class="console-line">
+                                    <span class="console-info">$ </span><span class="console-command">sudo su</span>
+                                </div>
+                            </div>
+                            And unbind controller from the system:
+                            <div class="console">
+                                <div class="console-line">
+                                    <span class="console-info"># </span><span class="console-command">echo "2-1.1:1.0" > /sys/bus/usb/drivers/usbhid/unbind</span>
+                                </div>
+                            </div>
+                        </li>
+                    </ol>
+                    <p>This operation you need to repeat each time you connecting your device to the machine.</p>
+                </div>
+                <div class="row help-row">
+                    <h2>I'm using ChromeOS</h2>
+                    <p>In this case you should report an issue on Chromium project because it should never happen.</p>
+                </div>
+                
+                <div class="row help-row">
+                    <button id="backUsbHelp" class="btn btn-primary btn-lg btn-gdgaction">Back to previous screen</button>
+                </div>
             </div>
         </div>
 
 
     <template id="question-category-template">
         <div class="question-category-wrapper start">
+            <div class="question-counter color-gray">
+                <span class="current-question"></span> / <span class="all-questions"></span>
+            </div>
             <div class="category-wrapper bg-gray">
                 <img src="img/gdgicon.svg" alt="GDG Logo" class="gdg-logo"/>
                 <span class="category-value"></span>
             </div>
-
         </div>
     </template>
 
@@ -179,6 +253,7 @@
     <script src="js/jquery-1.10.2.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/buzz.js"></script>
+    <script src="js/appsound.js"></script>
     <script src="js/AppTimer.js"></script>
     <script src="js/gamestates.js"></script>
     <script src="js/app.js"></script>

@@ -1,4 +1,10 @@
 window.AudioContext = window.AudioContext || window.webkitAudioContext;
+
+var APP_SOUNDS = {
+    'question_bg': 'sounds/193591__setuniman__nervous-1b40.wav'
+};
+
+
 /**
  * Game for sandbox for GDG DevFest 2013.
  * 
@@ -16,7 +22,12 @@ function GdgGame() {
      * @type ChromeBuzz
      */
     this.buzz = null;
-
+    /**
+     * Flag indicate that the device (buzz controller) is ready.
+     * @type Boolean
+     */
+    this.deviceReady = false;
+    
     this.players = [];
 
     /**
@@ -83,43 +94,34 @@ GdgGame.prototype.initialize = function() {
     this.observeAppActions();
     this.buzz = new ChromeBuzz();
     this.buzz.addListener(this.onBuzzEvent.bind(this));
-
-
-    try {
-        this.audioContext = new AudioContext();
-    }
-    catch (e) {
-    }
+//    var initialSounds = [
+//        APP_SOUNDS.question_bg
+//    ];
+//    this.audio = new GameSounds({sounds: initialSounds});
 };
 
-GdgGame.prototype.playSound = function(source) {
-    if(!this.audioContex) return;
-    
-    
-    if(source in this.audioBuffers){
-        var source = ctx.audioContex.createBufferSource();
-        source.buffer = this.audioBuffers[source];
-        source.loop = true;
-        source.connect(ctx.audioContex.destination);
-        source.start(0);
-        return;
-    }
-    
-    
-    var ctx = this;
-    var request = new XMLHttpRequest();
-    request.open('GET', source, true);
-    request.responseType = 'arraybuffer';
-    request.onload = function() {
-        this.audioContex.decodeAudioData(request.response, function(buffer) {
-            ctx.audioBuffers[source] = buffer;
-            var source = ctx.audioContex.createBufferSource();
-            source.buffer = buffer;
-            source.connect(ctx.audioContex.destination);
-            source.start(0);
-        }, function(e){});
-    };
-    request.send();
+GdgGame.prototype.playSound = function(source, volume, loop) {
+//    if(typeof volume === 'undefined') volume = 1;
+//    if(typeof loop === 'undefined') loop = false;
+//    this.audio.play({
+//        'url': source,
+//        'volume': volume,
+//        'loop':loop
+//    });
+};
+GdgGame.prototype.stopSound = function(source, isFade, fadeTime) {
+//    if(typeof isFade === 'undefined') isFade = false;
+//    if(isFade){
+//        if(typeof fadeTime === 'undefined') fadeTime = 1000;
+//        this.audio.fadeOut({
+//            'url': source,
+//            'time': fadeTime
+//        });
+//    } else {
+//        this.audio.stop({
+//            'url': source
+//        });
+//    }
 };
 
 /**
@@ -157,6 +159,10 @@ GdgGame.prototype.onBuzzEvent = function(buzz, change, param) {
 
     switch (change) {
         case 'interfaceready': //when device connection interface is ready to read/write data
+            
+            this.deviceReady = true;
+            
+            
             break;
         case 'initialized':
             if (param) {
@@ -174,8 +180,11 @@ GdgGame.prototype.onBuzzEvent = function(buzz, change, param) {
                 document.querySelector('#NoDevideScreenScreen').classList.add('hidden');
                 document.querySelector('#WelcomeScreen').classList.add('hidden');
                 document.querySelector('#DeviceNotReadyScreen').classList.add('hidden');
-                buzz.setupDevices(function() {
-                });
+                if(!this.deviceReady){
+                    buzz.setupDevices(function() {});
+                } else {
+                    this.gameBegin();
+                }
             } else {
                 //button with add permission
                 document.querySelector('#NoDevideScreenScreen').classList.remove('hidden');
@@ -205,11 +214,11 @@ GdgGame.prototype.onBuzzEvent = function(buzz, change, param) {
 //            console.log('Message from device', param);
             this.handleGameInput(param);
             break;
-    }
-    ;
+    };
 };
 GdgGame.prototype.handleUsbDisconnected = function() {
     var info = document.querySelector('#UsbDisconnectedScreen');
+    var moreInfo = document.querySelector('#usbDisconnectedMoreHelpButton');
     info.classList.remove('hidden');
     var button = document.querySelector('#tryReconnect');
 
@@ -219,14 +228,32 @@ GdgGame.prototype.handleUsbDisconnected = function() {
         this.buzz.setupDevices(function() {
         });
     }
-
-
+    
+    function back(e){
+        var moreInfoScreen = document.querySelector('#UsbDisconnectedMoreHelp');
+        moreInfoScreen.classList.add('hidden');
+        var moreInfoScreen = document.querySelector('#backUsbHelp');
+        moreInfoScreen.removeEventListener('click', back.bind(this), false);
+    }
+    
+    function displayMoreInfo(e){
+        var moreInfoScreen = document.querySelector('#UsbDisconnectedMoreHelp');
+        moreInfoScreen.classList.remove('hidden');
+        moreInfo.removeEventListener('click', displayMoreInfo.bind(this), false);
+        var moreInfoScreen = document.querySelector('#backUsbHelp');
+        moreInfoScreen.addEventListener('click', back.bind(this), false);
+    }
+    
+    moreInfo.addEventListener('click', displayMoreInfo.bind(this), false);
     button.addEventListener('click', reconnect.bind(this), false);
 };
 GdgGame.prototype.handleGameInput = function(param) {
 //    console.log(param, this.state);
     switch (this.state) {
         case G_STATE.WELCOME_SCREEN_BUZZ:
+            var resultsContainer = document.querySelector('#GameResultsScreen');
+            resultsContainer.classList.add('hidden');
+            
             var playerNo = this.playerRedButton(param);
             if (playerNo !== null) {
                 this.state = G_STATE.WELCOME_SCREEN_BUZZ_SELECTED;
@@ -318,7 +345,15 @@ GdgGame.prototype.gameBegin = function() {
  * @returns {undefined}
  */
 GdgGame.prototype.onPlayersReady = function() {
-    document.querySelector('#PlayersChooserScreen').classList.add('hidden');
+    
+    var playersChooserScreen = document.querySelector('#PlayersChooserScreen');
+    playersChooserScreen.classList.add('hidden');
+    
+    var circles = playersChooserScreen.querySelectorAll('#PlayersChooserScreen .player-selector > div .circle');
+    for(var i=0,len=circles.length;i<len;i++){
+        circles[i].classList.remove('active');
+    }
+    
     //we have some players here.
     //Lests start the game :)
     this.state = G_STATE.GAME_PREPARE_QUESTION;
@@ -447,15 +482,20 @@ GdgGame.prototype.nextQuestion = function() {
 GdgGame.prototype.setCategoryScreen = function(gameScreen, category, callback) {
     var content = document.querySelector('#question-category-template').content.cloneNode(true);
     content.querySelector('.category-value').innerText = category;
+    content.querySelector('.current-question').innerText = '#'+this.roundsCounter;
+    content.querySelector('.all-questions').innerText = this.maxRounds;
     gameScreen.appendChild(content);
     document.querySelector('.question-category-wrapper').classList.remove('start');
     document.querySelector('.question-category-wrapper').classList.add('active');
+    
+    
+    
     setTimeout(callback, 5000);
 };
 
 GdgGame.prototype.setQuestionScreen = function(gameScreen, question) {
     this.currentQuestion = question;
-    this.playSound('sounds/193591__setuniman__nervous-1b40.wav');
+    
 
     document.querySelector('.question-category-wrapper').classList.add('start');
     document.querySelector('.question-category-wrapper').classList.remove('active');
@@ -505,8 +545,8 @@ GdgGame.prototype.setQuestionScreen = function(gameScreen, question) {
         for (var i = 0, len = lis.length; i < len; i++) {
             lis[i].classList.remove('hidden');
         }
-
         this.startAnswersTimers(timers);
+        this.playSound('sounds/193591__setuniman__nervous-1b40.wav');
     }.bind(this, timers, gameScreen), 2000);
 };
 
@@ -578,6 +618,10 @@ GdgGame.prototype.setPlayerAnsweredState = function(playerNo) {
  */
 GdgGame.prototype.postPlayerAnswers = function() {
     this.state = G_STATE.GAME_AFTER_QUESTION;
+    
+    this.stopSound('sounds/193591__setuniman__nervous-1b40.wav', true, 500);
+    
+    
     var correctAnswerIndex = this.currentQuestion.correct;
 
     this.displayCorrectAnswer(correctAnswerIndex);
@@ -873,7 +917,7 @@ GdgGame.prototype.resetPlayersPosition = function(callback, noanim) {
 
 /**
  * Get current players order by score.
- * @returns {undefined}
+ * @returns {Array}
  */
 GdgGame.prototype.getPlayersOrder = function() {
     var order = [];
@@ -900,7 +944,37 @@ GdgGame.prototype.getPlayersOrder = function() {
  * @returns {undefined}
  */
 GdgGame.prototype.finishGame = function() {
-    console.log('game over');
+    this.state = G_STATE.GAME_FINISH;
+    var list = this.getPlayersOrder();
+    var gameContainer = document.querySelector('#GameQuestionScreen');
+    gameContainer.classList.add('hidden');
+    
+    var resultsContainer = document.querySelector('#GameResultsScreen');
+    for(var i=0; i<4; i++){
+        var li = resultsContainer.querySelector('.player-results li:nth-child('+(i+1)+')');
+        if(!li) continue;
+        var score = list[i];
+        if(!score){
+            li.classList.add('hidden');
+        } else {
+            li.querySelector('.player-name').innerText = 'Player ' + (list[i]['#']+1);
+            li.querySelector('.player-value').innerText =  list[i]['score'];
+        }
+    }
+    
+    resultsContainer.classList.remove('hidden');
+    this.resetGame();
+};
+
+GdgGame.prototype.resetGame = function() {
+    this.players = [];
+    this.roundsCounter = 0;
+    this.currentQuestion = null;
+    this.currentPlayerAnswers = {};
+    this.currentAnswersCount = 0;
+    this.answerStartTime = null;
+    
+    this.state = G_STATE.WELCOME_SCREEN_BUZZ;
 };
 
 
@@ -949,24 +1023,3 @@ game.initialize();
 //        console.log("Send data", e, arrayBufferToString(e.data));
 //    });
 //});
-
-
-//function arrayBufferToString(buff) {
-//
-//    var array = new Uint8Array(buff);
-//    var str = '';
-//    for (var i = 0; i < array.length; ++i) {
-//        str += String.fromCharCode(array[i]);
-//    }
-//    return str;
-//}
-//
-//
-//function stringToArrayBuffer(string) {
-//    var buffer = new ArrayBuffer(string.length);
-//    var bufferView = new Uint8Array(buffer);
-//    for (var i = 0; i < string.length; i++) {
-//        bufferView[i] = string.charCodeAt(i);
-//    }
-//    return buffer;
-//}

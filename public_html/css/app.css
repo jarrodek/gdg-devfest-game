@@ -186,6 +186,7 @@ a.btn-gdgaction, button.btn-gdgaction {
     -webkit-box-align: center;
     display: -webkit-box;
     height: 100%;
+    -webkit-box-orient: vertical;
 }
 .category-value {
     color: #FFFFFF;
@@ -422,4 +423,46 @@ ul.players-results.noanim li{
     -ms-filter: grayscale(100%);
     -o-filter: grayscale(100%);
     filter: grayscale(100%);
+}
+#UsbDisconnectedMoreHelp{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #fff;
+}
+
+
+
+.console-line {
+    background-color: #000;
+    padding: 4px;
+    color: #fff;
+}
+.question-counter {
+    font-weight: 700;
+    font-size: 22px;
+}
+#GameResultsScreen h1 {
+    text-align: center;
+    margin: 1em 0;
+}
+.player-results {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+#GameResultsScreen .player-results li {
+    margin: 20px 0;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+}
+#GameResultsScreen .player-name {
+    font-size: 36px;
+    font-weight: bold;
+}
+#GameResultsScreen .player-value {
+    color: #fff;
 }

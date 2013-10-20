@@ -94,7 +94,7 @@ ChromeBuzz.prototype._initialize = function(callback) {
         window.setTimeout(callback, 0);
         return;
     }
-    this.hasPermission(function(status){
+    this.hasPermission(function(status) {
         this.hasUserPermission = status;
         window.setTimeout(callback, 0);
     }.bind(this));
@@ -111,25 +111,25 @@ ChromeBuzz.prototype._initialize = function(callback) {
  * @returns {undefined}
  */
 ChromeBuzz.prototype.setupDevices = function(callback) {
-    callback = callback || function(){};
+    callback = callback || function() {};
     if (!this.initialized) {
         callback = null;
         throw "The app is still initializing.";
     }
-    if(!this.hasUserPermission){
+    if (!this.hasUserPermission) {
         callback = null;
         throw "You must grant permissions for Buzz!-ers first";
     }
-    
-    this.findDevices(function(numberOfDevices){
+
+    this.findDevices(function(numberOfDevices) {
         this.notifyListeners('hasDevices', numberOfDevices);
-        if(numberOfDevices === 0){
-            setTimeout(callback,0);
+        if (numberOfDevices === 0) {
+            setTimeout(callback, 0);
             return;
         } else {
-            this.claimInterfaces(function(){
+            this.claimInterfaces(function() {
                 this.readAll();
-                setTimeout(callback,0);
+                setTimeout(callback, 0);
             }.bind(this));
         }
     }.bind(this));
@@ -161,7 +161,9 @@ ChromeBuzz.prototype.getPermissionObject = function() {
  * @returns {undefined}
  */
 ChromeBuzz.prototype.requestPermission = function(callback) {
-    callback = callback || function(){};
+    callback = callback || function() {
+    };
+    
     var permissions = this.getPermissionObject();
     chrome.permissions.request(permissions, function(result) {
         this.hasUserPermission = !!result;
@@ -324,7 +326,7 @@ ChromeBuzz.prototype.claimInterfaces = function(callback) {
  * @returns {undefined}
  */
 ChromeBuzz.prototype.readAll = function() {
-    this.devices.forEach(function(device){
+    this.devices.forEach(function(device) {
         this._readDevice(device);
     }.bind(this));
 };
@@ -345,7 +347,7 @@ ChromeBuzz.prototype._readDevice = function(device) {
             this.notifyListeners('devicedisconnected', device);
             return;
         }
-        
+
         var data = new Uint8Array(usbEvent.data);
         var currByte = 2;
         var currShift = 0;

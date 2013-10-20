@@ -6,7 +6,8 @@ var G_STATE = {
     'CHAR_SEL_TIMEOUT': 4, //character selection timeout
     'GAME_PREPARE_QUESTION': 5, //state where the game is preparing the question and game level screen.
     'GAME_QUESTION_READY': 6, //the question is displayed and is waiting for an answers.
-    'GAME_AFTER_QUESTION': 7 //state right after all users give their answer (or timeout)
+    'GAME_AFTER_QUESTION': 7, //state right after all users give their answer (or timeout)
+    'GAME_FINISH': 8 //last screen in the game
 };
 
 
