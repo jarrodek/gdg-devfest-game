@@ -2,7 +2,7 @@
     "name": "GDG DevFest 2013 Buzz! game",
     "short_name": "DevFest Buzz",
     "description": "The game created for GDG DevFest 2013 conference in Warsaw, Poland. It is similar to Sony Buzz! game and it use Buzz!'s controllers.",
-    "version": "0.6",
+    "version": "0.4",
     "manifest_version": 2,
     "author": "Paweł Psztyć",
     "app": {
@@ -11,6 +11,7 @@
         }
     },
     "kiosk_enabled": true,
+    "kiosk_only": true,
     "offline_enabled": true,
     "permissions": ["usb"],
     "optional_permissions": [{"usbDevices": [{"vendorId": 1356, "productId": 2},{"vendorId": 1356, "productId": 4096}]}]
