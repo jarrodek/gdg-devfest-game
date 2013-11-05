@@ -1,0 +1,161 @@
+[{
+    "category": "Systemy komputerowe",
+    "question": "Od jakiej daty liczony jest tzw. UNIX time?",
+    "answers": ["1 stycznia 1970","1 stycznia 0000","1 grudnia 2010","1 stycznia 2000"]
+},
+{
+    "category": "Protokół HTTP",
+    "question": "Jaki kod HTTP ma status \"Moved permanently\"?",
+    "answers": ["301","307","404","200"]
+},
+{
+    "category": "Protokół HTTP",
+    "question": "Co oznacza w protokole HTTP kod 404?",
+    "answers": ["Not found / nie znaleziono","OK","Server Error","Redirect / przekierowanie"]
+},
+{
+    "category": "Protokół HTTP",
+    "question": "Jaki kod HTTP ma status \"Bad Request\"?",
+    "answers": ["400","404","500","307"]
+},
+{
+    "category": "Protokół HTTP",
+    "question": "Co oznacza w protokole HTTP kod 418?",
+    "answers": ["I’m a teapot / jestem czajniczkiem","Server Error","Not found / nie znaleziono","Redirect / przekierowanie"]
+},
+{
+    "category": "Przeglądarki internetowe",
+    "question": "Jak nazywa się silnik renderowania, który używany jest w większości przeglądarek obecnych na smartfonach i desktopach, jak np. Chrome i Safari?",
+    "answers": ["Webkit","Gecko","Trident","KHTML"]
+},
+{
+    "category": "Przeglądarki internetowe",
+    "question": "Jak nazywa się silnik renderowania aktualnie używany w przegladarce Google Chrome?",
+    "answers": ["Blink","Gecko","Trident","Webkit"]
+},
+{
+    "category": "Przeglądarki internetowe",
+    "question": "Jak nazywała się  biblioteka renderującą HTML w środowisku KDE, na której bazie powstał silnik webkit?",
+    "answers": ["KHTML","Gecko","Trident","Blink"]
+},
+{
+    "category": "Aplikacje internetowe",
+    "question": "W którym roku wystartowała dostępna na zaproszenie wersja beta serwisu Gmail?",
+    "answers": ["2004","2005","2007","208"]
+},
+{
+    "category": "Języki programowania",
+    "question": "Jak nazywa się nowy język programowania dla przeglądarek rozwijany przez Google, który został wymyślony specjalnie do tworzenia web aplikacji?",
+    "answers": ["Dart","GWT","AppEngine","Javascript"]
+},
+{
+    "category": "Mobilny OS",
+    "question": "Według jakiej reguły nazywane są kolejne wersje systemu Android?",
+    "answers": ["Słodycze, w kolejności alfabetycznej","Nazwy mostów w San Francisco","Ulubione ciastka Larrego Page\"a","Losowo wybierany nazwy słodyczy"]
+},
+{
+    "category": "Projektowanie stron www",
+    "question": "Jak nazywa się technika tworzenia stron internetowych, aby dynamicznie dostosowywały się do rozmiaru ekranu?",
+    "answers": ["Responsive Web Design","Responsible Web Design","Screen Size Design","Optional Design"]
+},
+{
+    "category": "Świat urządzeń mobilnych",
+    "question": "Ile modeli urządzeń z linii Nexus wypuścił do tej pory Google?",
+    "answers": ["7","6","5","8"]
+},
+{
+    "category": "Języki programowania",
+    "question": "Które środowisko uruchomieniowe jest dostępne na Google App Engine?",
+    "answers": ["PHP","PERL","PDP","C#"]
+},
+{
+    "category": "Coś dla geeka",
+    "question": "Jaka jest odpowiedź na Wielkie Pytanie o Życie, Wszechświat i całą resztę?",
+    "answers": ["42","Tak","Pomidor","Czas na kawę"]
+},
+{
+    "category": "Coś dla geeka",
+    "question": "Który reżyser został zaangażowany zarówno do zrebootowania serii Star Trek, jak i Star Wars?",
+    "answers": ["J.J. Abrams","James Cameron","Roman Polański","Quentin Tarantino"]
+},
+{
+    "category": "Coś dla geeka",
+    "question": "Jak nazywa się kontroler umożliwiające śledzenie ruchów ciała gracza w konsoli Nintendo Wii?",
+    "answers": ["Wii Remote","Wii Note","Wii Move","Nintedo body"]
+},
+{
+    "category": "Języki programowania",
+    "question": "Jak nazywała się Java zanim została nazwana Java?",
+    "answers": ["Oak","Maple","C++ 2.0","Nie było nazwy innej nazwy przed Java."]
+},
+{
+    "category": "Wolne oprogramowanie",
+    "question": "Kto założył \"Free Softwere Fundation\"",
+    "answers": ["Richard Stallman","Bill Gates","Linus Torvalds","Steve Jobs"]
+},
+{
+    "category": "Wolne oprogramowanie",
+    "question": "Jak nazywa się grupa popularnych licencji pozwalających na korzystanie z dzieł chronionych prawem autorskim?",
+    "answers": ["Creative Commons","Creative Labs","Common Knowledge","Command & Conquer"]
+},
+{
+    "category": "Wolne oprogramowanie",
+    "question": "Jak nazywa sie maskotka Linuxa?",
+    "answers": ["Tux","Duke","Hex","Linus"]
+},
+{
+    "category": "Języki programowania",
+    "question": "Kto jest twórcą języka skryptowego JavaScript?",
+    "answers": ["Brendan Eic","Linus Torvalds","Steve Jobs","Larry Wall"]
+},
+{
+    "category": "Wolne oprogramowanie",
+    "question": "Która z licencji jest licencją typu Copyleft?",
+    "answers": ["GNU GPL","Apache 1.0","BSD","MIT"]
+},
+{
+    "category": "Sławni programiści",
+    "question": "Który ze sławnych naukowców popełnił samobójstwo zjadając zatrute jabłko?",
+    "answers": ["Alan Turing","Ada Lovelace","Charles Babbage","Steve Jobs"]
+},
+{
+    "category": "Języki programowania",
+    "question": "W Javie metody domyślnie są:",
+    "answers": ["package private","public","private","protected"]
+},
+{
+    "category": "Sławni programiści",
+    "question": "Jaki język programowania stworzył Bjarne Stroustrup?",
+    "answers": ["C++","C#","C","Bash Shell Scripting"]
+},
+{
+    "category": "Przeglądarki internetowe",
+    "question": "Która przeglądarka była domyślnie instalowana na Mac OS w póxnych latach 90-tych?",
+    "answers": ["Internet Explorer","Safari","Netscape","Firefox"]
+},
+{
+    "category": "Języki programowania",
+    "question": "Jaki jest rezultat tego obliczenia w Javie: 2^3?",
+    "answers": ["1","8","0","6"]
+},
+{
+    "category": "Przeglądarki internetowe",
+    "question": "Kiedy została wypuszczona stabilna wersja przeglądarki Google Chrome na system MS Windows?",
+    "answers": ["Grudzień 2008","Wrzesień 2008","Luty 2006","Styczeń 2010"]
+},
+{
+    "category": "Google Developers",
+    "question": "Gdzie odbywa się konferencja dla programistów Google I/O?",
+    "answers": ["Moscone Center","Downtown Center","Moscone Plaza","San Francisco Stadium"]
+},
+{
+    "category": "Mobilne OSy",
+    "question": "Kiedy na rynku pojawił się pierwszy aparat z systemem Android?",
+    "answers": ["Październik 2008","Styczeń 2010","Luty 2008","Lipiec 2005"]
+},
+{
+    "category": "Mobilne OSy",
+    "question": "Zgodnie z oryginalną ideą Seve Jobsa aplikacje na iPhone miały być:",
+    "answers": ["Tylko aplikacjami webowymi","Natywnymi aplikacjami z AppStore","Pisane w Javie","Bez ograniczeń dostępu do systemu"]
+}
+]

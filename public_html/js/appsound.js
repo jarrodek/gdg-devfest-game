@@ -11,7 +11,6 @@ function GameSounds(opts) {
     this.bufferLoader = null;
     this.initialized = false;
     this.initialize(opts.sounds);
-    
     this.sounds = {};
     this.sources = {};
 }

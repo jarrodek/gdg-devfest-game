@@ -172,7 +172,7 @@ GdgGame.prototype.onBuzzEvent = function(buzz, change, param) {
                 buzz.setupDevices(function() {
                 });
             } else {
-
+                document.querySelector('#buzzerPressInfo').classList.add('hidden');
             }
             break;
         case 'hasPermission':
@@ -180,6 +180,7 @@ GdgGame.prototype.onBuzzEvent = function(buzz, change, param) {
                 document.querySelector('#NoDevideScreenScreen').classList.add('hidden');
                 document.querySelector('#WelcomeScreen').classList.add('hidden');
                 document.querySelector('#DeviceNotReadyScreen').classList.add('hidden');
+                document.querySelector('#buzzerPressInfo').classList.remove('hidden');
                 if(!this.deviceReady){
                     buzz.setupDevices(function() {});
                 } else {
@@ -415,7 +416,6 @@ GdgGame.prototype.onSelectPlayersEnds = function() {
         info.classList.remove('hidden');
     } else {
         this._selectedPlayersCallback();
-        //delete this._selectedPlayersCallback;
     }
 };
 
@@ -434,8 +434,19 @@ GdgGame.prototype.createPieTimerCanvas = function(size) {
  * @returns {undefined}
  */
 GdgGame.prototype.loadQuestions = function(callback) {
-    //docelowo tutaj plik json z pytaniami pobierany przez XmlHttpRequest
-    callback(GAME_QUESTIONS);
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET','assets/questions.json',true);
+    xhr.onload = function(e){
+        var rsp = null;
+        try{
+            rsp = JSON.parse(e.target.response);
+        } catch(e){
+            callback(null);
+            return;
+        }
+        callback(rsp);
+    };
+    xhr.send();
 };
 
 
